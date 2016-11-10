@@ -41,7 +41,9 @@
                             <p:inputText id="areaWidth" value="#{microMarketController.selected.areaWidth}" title="#{myBundle.CreateMicroMarketTitle_areaWidth}"/>
                         </pm:field>
                     </p:outputPanel>
-                    <p:commandButton actionListener="#{microMarketController.saveNew}" value="#{myBundle.Save}" update="display,:MicroMarketListPage:MicroMarketListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:MicroMarketListPage')}"/>
+                    <p:commandButton actionListener="#{microMarketController.saveNew}" value="#{myBundle.Save}" update="display,:MicroMarketListPage:MicroMarketListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:MicroMarketListPage')}">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
 
                 </h:panelGroup>
 

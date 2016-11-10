@@ -12,7 +12,7 @@ import test.entities.MicroMarket;
 
 /**
  *
- * @author mauronew
+ * @author kuw
  */
 @Stateless
 public class MicroMarketFacade extends AbstractFacade<MicroMarket> {

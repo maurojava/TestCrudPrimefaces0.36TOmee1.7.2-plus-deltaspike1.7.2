@@ -2,8 +2,10 @@ package test.controllers;
 
 import test.controllers.util.MobilePageController;
 import test.entities.ProductCode;
+import test.ejbs.ProductCodeFacade;
 import javax.inject.Named;
 import org.apache.deltaspike.core.api.scope.ViewAccessScoped;
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 @Named(value = "productCodeController")
@@ -11,9 +13,21 @@ import javax.inject.Inject;
 public class ProductCodeController extends AbstractController<ProductCode> {
 
     @Inject
+    private ProductCodeFacade ejbFacade;
+    @Inject
     private ProductController productListController;
     @Inject
     private MobilePageController mobilePageController;
+
+    /**
+     * Initialize the concrete ProductCode controller bean. The
+     * AbstractController requires the EJB Facade object for most operations.
+     */
+    @PostConstruct
+    @Override
+    public void init() {
+        super.setFacade(ejbFacade);
+    }
 
     public ProductCodeController() {
         // Inform the Abstract parent controller of the concrete ProductCode Entity

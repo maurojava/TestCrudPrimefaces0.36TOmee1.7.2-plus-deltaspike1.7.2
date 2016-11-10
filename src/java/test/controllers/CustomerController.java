@@ -2,15 +2,19 @@ package test.controllers;
 
 import test.controllers.util.MobilePageController;
 import test.entities.Customer;
+import test.ejbs.CustomerFacade;
 import javax.inject.Named;
 import org.apache.deltaspike.core.api.scope.ViewAccessScoped;
 import javax.faces.event.ActionEvent;
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 @Named(value = "customerController")
 @ViewAccessScoped
 public class CustomerController extends AbstractController<Customer> {
 
+    @Inject
+    private CustomerFacade ejbFacade;
     @Inject
     private PurchaseOrderController purchaseOrderListController;
     @Inject
@@ -19,6 +23,16 @@ public class CustomerController extends AbstractController<Customer> {
     private MicroMarketController zipController;
     @Inject
     private MobilePageController mobilePageController;
+
+    /**
+     * Initialize the concrete Customer controller bean. The AbstractController
+     * requires the EJB Facade object for most operations.
+     */
+    @PostConstruct
+    @Override
+    public void init() {
+        super.setFacade(ejbFacade);
+    }
 
     public CustomerController() {
         // Inform the Abstract parent controller of the concrete Customer Entity

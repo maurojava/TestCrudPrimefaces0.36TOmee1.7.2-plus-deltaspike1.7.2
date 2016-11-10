@@ -2,8 +2,10 @@ package test.controllers;
 
 import test.controllers.util.MobilePageController;
 import test.entities.MicroMarket;
+import test.ejbs.MicroMarketFacade;
 import javax.inject.Named;
 import org.apache.deltaspike.core.api.scope.ViewAccessScoped;
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 @Named(value = "microMarketController")
@@ -11,9 +13,21 @@ import javax.inject.Inject;
 public class MicroMarketController extends AbstractController<MicroMarket> {
 
     @Inject
+    private MicroMarketFacade ejbFacade;
+    @Inject
     private CustomerController customerListController;
     @Inject
     private MobilePageController mobilePageController;
+
+    /**
+     * Initialize the concrete MicroMarket controller bean. The
+     * AbstractController requires the EJB Facade object for most operations.
+     */
+    @PostConstruct
+    @Override
+    public void init() {
+        super.setFacade(ejbFacade);
+    }
 
     public MicroMarketController() {
         // Inform the Abstract parent controller of the concrete MicroMarket Entity

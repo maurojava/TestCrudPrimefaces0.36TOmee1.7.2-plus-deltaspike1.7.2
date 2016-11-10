@@ -77,7 +77,9 @@
                             </p:selectOneMenu>
                         </pm:field>
                     </p:outputPanel>
-                    <p:commandButton actionListener="#{productController.saveNew}" value="#{myBundle.Save}" update="display,:ProductListPage:ProductListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:ProductListPage')}"/>
+                    <p:commandButton actionListener="#{productController.saveNew}" value="#{myBundle.Save}" update="display,:ProductListPage:ProductListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:ProductListPage')}">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
 
                 </h:panelGroup>
 

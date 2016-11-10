@@ -36,7 +36,9 @@
                             <p:inputText id="description" value="#{productCodeController.selected.description}" title="#{myBundle.CreateProductCodeTitle_description}" size="10" maxlength="10"/>
                         </pm:field>
                     </p:outputPanel>
-                    <p:commandButton actionListener="#{productCodeController.saveNew}" value="#{myBundle.Save}" update="display,:ProductCodeListPage:ProductCodeListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:ProductCodeListPage')}"/>
+                    <p:commandButton actionListener="#{productCodeController.saveNew}" value="#{myBundle.Save}" update="display,:ProductCodeListPage:ProductCodeListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:ProductCodeListPage')}">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
 
                 </h:panelGroup>
 

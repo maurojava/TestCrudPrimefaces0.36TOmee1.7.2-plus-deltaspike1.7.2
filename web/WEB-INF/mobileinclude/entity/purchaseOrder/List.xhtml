@@ -21,72 +21,85 @@
 
             <h:form id="PurchaseOrderListForm">
 
-                <p:dataList id="datalist"
-                            paginator="true"
-                            rows="10"
-                            rowsPerPageTemplate="10,20,30,40,50"
-                            value="#{purchaseOrderController.items}"
-                            var="item">
+                <p:dataTable id="datalist"
+                             value="#{purchaseOrderController.items}"
+                             var="item"
+                             rowKey="#{item.orderNum}"
+                             paginator="true"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             selectionMode="single"
+                             selection="#{purchaseOrderController.selected}"
+                             reflow="true">
 
-                    <f:facet name="header">
-                        <h:outputText value="#{myBundle.ListPurchaseOrderTitle}"/>
-                    </f:facet>
+                    <p:ajax event="rowSelect"   update="@form:editButton,@form:deleteButton,@form:navigationMenuButton,@form:navigationMenuPanel" listener="#{purchaseOrderController.resetParents}"/>
+                    <p:ajax event="rowUnselect" update="@form:editButton,@form:deleteButton,@form:navigationMenuButton,@form:navigationMenuPanel" listener="#{purchaseOrderController.resetParents}"/>
+                    <p:ajax event="swipeleft"   oncomplete="document.getElementById('PurchaseOrderListPage:PurchaseOrderListForm:deleteButton').click();"/>
+                    <p:ajax event="tap"         oncomplete="document.getElementById('PurchaseOrderListPage:PurchaseOrderListForm:editButton').click();"/>
+                    <p:ajax event="taphold"     oncomplete="document.getElementById('PurchaseOrderListPage:PurchaseOrderListForm:navigationMenuButton').click();"/>
 
-                    <p:commandLink update=":PurchaseOrderEditPage:PurchaseOrderEditForm" action="pm:PurchaseOrderEditPage">
-                        <p>
-
-
-
-                            <h:outputText value="#{item.orderNum}"/>
-
-
-
-                            ,&nbsp;
-                            <h:outputText value="#{item.quantity}"/>
+                    <p:column sortBy="#{item.orderNum}" filterBy="#{item.orderNum}" headerText="#{myBundle.ListPurchaseOrderTitle_orderNum}">
+                        <h:outputText value="#{item.orderNum}"/>
+                    </p:column>
 
 
-
-                            ,&nbsp;
-                            <h:outputText value="#{item.shippingCost}"/>
-
-
-
-                            ,&nbsp;
-                            <h:outputText value="#{item.salesDate}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
+                    <p:column sortBy="#{item.quantity}" filterBy="#{item.quantity}" headerText="#{myBundle.ListPurchaseOrderTitle_quantity}">
+                        <h:outputText value="#{item.quantity}"/>
+                    </p:column>
 
 
-
-                            ,&nbsp;
-                            <h:outputText value="#{item.shippingDate}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
+                    <p:column sortBy="#{item.shippingCost}" filterBy="#{item.shippingCost}" headerText="#{myBundle.ListPurchaseOrderTitle_shippingCost}">
+                        <h:outputText value="#{item.shippingCost}"/>
+                    </p:column>
 
 
+                    <p:column sortBy="#{item.salesDate}" filterBy="#{item.salesDate}" headerText="#{myBundle.ListPurchaseOrderTitle_salesDate}">
+                        <h:outputText value="#{item.salesDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </p:column>
 
-                            ,&nbsp;
-                            <h:outputText value="#{item.freightCompany}"/>
+
+                    <p:column sortBy="#{item.shippingDate}" filterBy="#{item.shippingDate}" headerText="#{myBundle.ListPurchaseOrderTitle_shippingDate}">
+                        <h:outputText value="#{item.shippingDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </p:column>
 
 
-                            <!--
-                                ,&nbsp;
-                                                    <h:outputText value="#{item.customerId.name}"/>
-                            -->
+                    <p:column sortBy="#{item.freightCompany}" filterBy="#{item.freightCompany}" headerText="#{myBundle.ListPurchaseOrderTitle_freightCompany}">
+                        <h:outputText value="#{item.freightCompany}"/>
+                    </p:column>
 
-                            <!--
-                                ,&nbsp;
-                                                    <h:outputText value="#{item.productId.description}"/>
-                            -->
-                        </p>
-                        <f:setPropertyActionListener value="#{item}" target="#{purchaseOrderController.selected}" />
-                    </p:commandLink>
+                    <!--
+                                        <p:column sortBy="#{item.customerId.name}" filterBy="#{item.customerId.name}" headerText="#{myBundle.ListPurchaseOrderTitle_customerId}">
+                                            <h:outputText value="#{item.customerId.name}"/>
+                                        </p:column>
+                    -->
+                    <!--
+                                        <p:column sortBy="#{item.productId.description}" filterBy="#{item.productId.description}" headerText="#{myBundle.ListPurchaseOrderTitle_productId}">
+                                            <h:outputText value="#{item.productId.description}"/>
+                                        </p:column>
+                    -->
+                </p:dataTable>
+                <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":PurchaseOrderEditPage:PurchaseOrderEditForm" disabled="#{empty purchaseOrderController.selected}" actionListener="#{mobilePageController.currentPageListener}" action="#{mobilePageController.navigateWithHistory('pm:PurchaseOrderEditPage')}"/>
+                <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{purchaseOrderController.delete}" update=":growl,datalist" disabled="#{empty purchaseOrderController.selected}"/>
+                <p:commandButton id="navigationMenuButton" style="visibility: hidden;" value="#{myBundle.Menu}" disabled="#{empty purchaseOrderController.selected}"/>
 
-                    <f:facet name="footer">
-                        <h:outputText value="#{myBundle.ListPurchaseOrderTitle}"/>
-                    </f:facet>
+                <p:overlayPanel id="navigationMenuPanel" for="navigationMenuButton" at="right" showEffect="overlay">
+                    <h2>#{myBundle.PurchaseOrderHeading} #{myBundle.Menu}</h2>
+                    <p:menu>
+                        <p:menuitem value="#{myBundle.PurchaseOrderMenuItem_customerId}" icon="ui-icon-search" update=":CustomerEditPage:CustomerEditForm" disabled="#{empty purchaseOrderController.selected.customerId}" actionListener="#{purchaseOrderController.prepareCustomerId}" action="#{mobilePageController.navigateWithHistory}">  
+                            <f:actionListener binding="#{currentPageActionListener}"/>
+                            <f:setPropertyActionListener target="#{mobilePageController.nextPage}" value="pm:CustomerEditPage"/>
+                        </p:menuitem>
+                        <p:menuitem value="#{myBundle.PurchaseOrderMenuItem_productId}" icon="ui-icon-search" update=":ProductEditPage:ProductEditForm" disabled="#{empty purchaseOrderController.selected.productId}" actionListener="#{purchaseOrderController.prepareProductId}" action="#{mobilePageController.navigateWithHistory}">  
+                            <f:actionListener binding="#{currentPageActionListener}"/>
+                            <f:setPropertyActionListener target="#{mobilePageController.nextPage}" value="pm:ProductEditPage"/>
+                        </p:menuitem>
+                    </p:menu>
+                </p:overlayPanel>
 
-                </p:dataList>
             </h:form>
 
         </pm:content>

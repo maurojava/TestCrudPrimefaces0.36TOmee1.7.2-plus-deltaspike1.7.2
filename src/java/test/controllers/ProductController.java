@@ -2,15 +2,19 @@ package test.controllers;
 
 import test.controllers.util.MobilePageController;
 import test.entities.Product;
+import test.ejbs.ProductFacade;
 import javax.inject.Named;
 import org.apache.deltaspike.core.api.scope.ViewAccessScoped;
 import javax.faces.event.ActionEvent;
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 @Named(value = "productController")
 @ViewAccessScoped
 public class ProductController extends AbstractController<Product> {
 
+    @Inject
+    private ProductFacade ejbFacade;
     @Inject
     private PurchaseOrderController purchaseOrderListController;
     @Inject
@@ -19,6 +23,16 @@ public class ProductController extends AbstractController<Product> {
     private ProductCodeController productCodeController;
     @Inject
     private MobilePageController mobilePageController;
+
+    /**
+     * Initialize the concrete Product controller bean. The AbstractController
+     * requires the EJB Facade object for most operations.
+     */
+    @PostConstruct
+    @Override
+    public void init() {
+        super.setFacade(ejbFacade);
+    }
 
     public ProductController() {
         // Inform the Abstract parent controller of the concrete Product Entity

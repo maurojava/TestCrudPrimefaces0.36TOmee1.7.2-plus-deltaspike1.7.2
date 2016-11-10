@@ -1,7 +1,7 @@
-package test.ejbs;
+package test.converters;
 
-import test.entities.Product;
-import test.ejbs.ProductFacade;
+import test.entities.Customer;
+import test.ejbs.CustomerFacade;
 import test.controllers.util.JsfUtil;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,11 +11,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
-@Named(value = "productConverter")
-public class ProductConverter implements Converter {
+@Named(value = "customerConverter")
+public class CustomerConverter implements Converter {
 
     @Inject
-    private ProductFacade ejbFacade;
+    private CustomerFacade ejbFacade;
 
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
@@ -43,16 +43,16 @@ public class ProductConverter implements Converter {
                 || (object instanceof String && ((String) object).length() == 0)) {
             return null;
         }
-        if (object instanceof Product) {
-            Product o = (Product) object;
-            return getStringKey(o.getProductId());
+        if (object instanceof Customer) {
+            Customer o = (Customer) object;
+            return getStringKey(o.getCustomerId());
         } else {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Product.class.getName()});
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Customer.class.getName()});
             return null;
         }
     }
 
-    private ProductFacade getEjbFacade() {
+    private CustomerFacade getEjbFacade() {
         return this.ejbFacade;
     }
 }

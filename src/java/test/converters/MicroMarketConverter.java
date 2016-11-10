@@ -1,4 +1,4 @@
-package test.ejbs;
+package test.converters;
 
 import test.entities.MicroMarket;
 import test.ejbs.MicroMarketFacade;

@@ -76,7 +76,9 @@
                             <p:inputText id="rep" value="#{manufacturerController.selected.rep}" title="#{myBundle.CreateManufacturerTitle_rep}" size="30" maxlength="30"/>
                         </pm:field>
                     </p:outputPanel>
-                    <p:commandButton actionListener="#{manufacturerController.saveNew}" value="#{myBundle.Save}" update="display,:ManufacturerListPage:ManufacturerListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:ManufacturerListPage')}"/>
+                    <p:commandButton actionListener="#{manufacturerController.saveNew}" value="#{myBundle.Save}" update="display,:ManufacturerListPage:ManufacturerListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:ManufacturerListPage')}">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
 
                 </h:panelGroup>
 

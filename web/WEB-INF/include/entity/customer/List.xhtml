@@ -20,8 +20,9 @@
                 <p:menuitem value="#{myBundle.CustomerMenuItem_zip}" icon="ui-icon-search"  actionListener="#{customerController.prepareZip}" update=":MicroMarketViewForm" oncomplete="PF('MicroMarketViewDialog').show()" disabled="#{empty customerController.selected.zip}"/>  
             </p:contextMenu>
             <p:dataTable id="datalist"
-                         value="#{customerController.lazyItems}"
-                         lazy="true"
+                         value="#{customerController.items}"
+                         lazy="false"
+                         rowKey="#{item.customerId}"
                          var="item"
                          paginator="true"
                          rows="10"
@@ -29,12 +30,12 @@
                          selectionMode="single"
                          selection="#{customerController.selected}">
                 <!--
-                         To disable Lazy Loading, please copy/replace the following lines above,
+                         To enable Lazy Loading, please copy/replace the following lines above,
                          and be sure to replace the word HASH with the # symbol:
                 
-                         value="HASH{customerController.items}"
-                         lazy="false"
-                         rowKey="HASH{item.customerId}"
+                         value="HASH{customerController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.customerId}"  <<< Remove this line
                 -->
 
 

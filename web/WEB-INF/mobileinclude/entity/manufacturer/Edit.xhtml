@@ -76,7 +76,9 @@
                             <p:inputText id="rep" value="#{manufacturerController.selected.rep}" title="#{myBundle.EditManufacturerTitle_rep}" size="30" maxlength="30"/>
                         </pm:field>
                     </p:outputPanel>
-                    <p:commandButton actionListener="#{manufacturerController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:ManufacturerListPage:ManufacturerListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:ManufacturerListPage')}"/>
+                    <p:commandButton actionListener="#{manufacturerController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:ManufacturerListPage:ManufacturerListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:ManufacturerListPage')}">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
 
                 </h:panelGroup>
 

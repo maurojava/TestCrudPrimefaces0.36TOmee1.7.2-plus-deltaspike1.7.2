@@ -12,7 +12,7 @@ import test.entities.PurchaseOrder;
 
 /**
  *
- * @author mauronew
+ * @author kuw
  */
 @Stateless
 public class PurchaseOrderFacade extends AbstractFacade<PurchaseOrder> {

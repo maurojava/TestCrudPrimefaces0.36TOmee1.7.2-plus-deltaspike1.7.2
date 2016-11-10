@@ -2,8 +2,10 @@ package test.controllers;
 
 import test.controllers.util.MobilePageController;
 import test.entities.Manufacturer;
+import test.ejbs.ManufacturerFacade;
 import javax.inject.Named;
 import org.apache.deltaspike.core.api.scope.ViewAccessScoped;
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 @Named(value = "manufacturerController")
@@ -11,9 +13,21 @@ import javax.inject.Inject;
 public class ManufacturerController extends AbstractController<Manufacturer> {
 
     @Inject
+    private ManufacturerFacade ejbFacade;
+    @Inject
     private ProductController productListController;
     @Inject
     private MobilePageController mobilePageController;
+
+    /**
+     * Initialize the concrete Manufacturer controller bean. The
+     * AbstractController requires the EJB Facade object for most operations.
+     */
+    @PostConstruct
+    @Override
+    public void init() {
+        super.setFacade(ejbFacade);
+    }
 
     public ManufacturerController() {
         // Inform the Abstract parent controller of the concrete Manufacturer Entity

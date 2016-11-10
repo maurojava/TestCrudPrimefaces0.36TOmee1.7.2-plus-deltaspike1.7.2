@@ -12,7 +12,7 @@ import test.entities.DiscountCode;
 
 /**
  *
- * @author mauronew
+ * @author kuw
  */
 @Stateless
 public class DiscountCodeFacade extends AbstractFacade<DiscountCode> {

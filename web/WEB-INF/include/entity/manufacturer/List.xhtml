@@ -18,8 +18,9 @@
                 <p:menuitem value="#{myBundle.ManufacturerMenuItem_productList}" icon="ui-icon-search"  action="#{manufacturerController.navigateProductList}" disabled="#{empty manufacturerController.selected.productList}" ajax="false"/>  
             </p:contextMenu>
             <p:dataTable id="datalist"
-                         value="#{manufacturerController.lazyItems}"
-                         lazy="true"
+                         value="#{manufacturerController.items}"
+                         lazy="false"
+                         rowKey="#{item.manufacturerId}"
                          var="item"
                          paginator="true"
                          rows="10"
@@ -27,12 +28,12 @@
                          selectionMode="single"
                          selection="#{manufacturerController.selected}">
                 <!--
-                         To disable Lazy Loading, please copy/replace the following lines above,
+                         To enable Lazy Loading, please copy/replace the following lines above,
                          and be sure to replace the word HASH with the # symbol:
                 
-                         value="HASH{manufacturerController.items}"
-                         lazy="false"
-                         rowKey="HASH{item.manufacturerId}"
+                         value="HASH{manufacturerController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.manufacturerId}"  <<< Remove this line
                 -->
 
 

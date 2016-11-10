@@ -2,9 +2,11 @@ package test.controllers;
 
 import test.controllers.util.MobilePageController;
 import test.entities.PurchaseOrder;
+import test.ejbs.PurchaseOrderFacade;
 import javax.inject.Named;
 import org.apache.deltaspike.core.api.scope.ViewAccessScoped;
 import javax.faces.event.ActionEvent;
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 @Named(value = "purchaseOrderController")
@@ -12,11 +14,23 @@ import javax.inject.Inject;
 public class PurchaseOrderController extends AbstractController<PurchaseOrder> {
 
     @Inject
+    private PurchaseOrderFacade ejbFacade;
+    @Inject
     private CustomerController customerIdController;
     @Inject
     private ProductController productIdController;
     @Inject
     private MobilePageController mobilePageController;
+
+    /**
+     * Initialize the concrete PurchaseOrder controller bean. The
+     * AbstractController requires the EJB Facade object for most operations.
+     */
+    @PostConstruct
+    @Override
+    public void init() {
+        super.setFacade(ejbFacade);
+    }
 
     public PurchaseOrderController() {
         // Inform the Abstract parent controller of the concrete PurchaseOrder Entity

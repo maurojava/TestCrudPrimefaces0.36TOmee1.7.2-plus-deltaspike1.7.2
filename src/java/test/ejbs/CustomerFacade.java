@@ -12,7 +12,7 @@ import test.entities.Customer;
 
 /**
  *
- * @author mauronew
+ * @author kuw
  */
 @Stateless
 public class CustomerFacade extends AbstractFacade<Customer> {

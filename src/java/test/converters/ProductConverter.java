@@ -1,7 +1,7 @@
-package test.ejbs;
+package test.converters;
 
-import test.entities.DiscountCode;
-import test.ejbs.DiscountCodeFacade;
+import test.entities.Product;
+import test.ejbs.ProductFacade;
 import test.controllers.util.JsfUtil;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,11 +11,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
-@Named(value = "discountCodeConverter")
-public class DiscountCodeConverter implements Converter {
+@Named(value = "productConverter")
+public class ProductConverter implements Converter {
 
     @Inject
-    private DiscountCodeFacade ejbFacade;
+    private ProductFacade ejbFacade;
 
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
@@ -25,13 +25,13 @@ public class DiscountCodeConverter implements Converter {
         return this.getEjbFacade().find(getKey(value));
     }
 
-    java.lang.String getKey(String value) {
-        java.lang.String key;
-        key = value;
+    java.lang.Integer getKey(String value) {
+        java.lang.Integer key;
+        key = Integer.valueOf(value);
         return key;
     }
 
-    String getStringKey(java.lang.String value) {
+    String getStringKey(java.lang.Integer value) {
         StringBuffer sb = new StringBuffer();
         sb.append(value);
         return sb.toString();
@@ -43,16 +43,16 @@ public class DiscountCodeConverter implements Converter {
                 || (object instanceof String && ((String) object).length() == 0)) {
             return null;
         }
-        if (object instanceof DiscountCode) {
-            DiscountCode o = (DiscountCode) object;
-            return getStringKey(o.getDiscountCode());
+        if (object instanceof Product) {
+            Product o = (Product) object;
+            return getStringKey(o.getProductId());
         } else {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), DiscountCode.class.getName()});
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Product.class.getName()});
             return null;
         }
     }
 
-    private DiscountCodeFacade getEjbFacade() {
+    private ProductFacade getEjbFacade() {
         return this.ejbFacade;
     }
 }

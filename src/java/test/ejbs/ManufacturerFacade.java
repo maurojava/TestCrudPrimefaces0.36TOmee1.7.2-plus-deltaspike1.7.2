@@ -12,7 +12,7 @@ import test.entities.Manufacturer;
 
 /**
  *
- * @author mauronew
+ * @author kuw
  */
 @Stateless
 public class ManufacturerFacade extends AbstractFacade<Manufacturer> {

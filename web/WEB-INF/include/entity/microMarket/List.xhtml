@@ -18,8 +18,9 @@
                 <p:menuitem value="#{myBundle.MicroMarketMenuItem_customerList}" icon="ui-icon-search"  action="#{microMarketController.navigateCustomerList}" disabled="#{empty microMarketController.selected.customerList}" ajax="false"/>  
             </p:contextMenu>
             <p:dataTable id="datalist"
-                         value="#{microMarketController.lazyItems}"
-                         lazy="true"
+                         value="#{microMarketController.items}"
+                         lazy="false"
+                         rowKey="#{item.zipCode}"
                          var="item"
                          paginator="true"
                          rows="10"
@@ -27,12 +28,12 @@
                          selectionMode="single"
                          selection="#{microMarketController.selected}">
                 <!--
-                         To disable Lazy Loading, please copy/replace the following lines above,
+                         To enable Lazy Loading, please copy/replace the following lines above,
                          and be sure to replace the word HASH with the # symbol:
                 
-                         value="HASH{microMarketController.items}"
-                         lazy="false"
-                         rowKey="HASH{item.zipCode}"
+                         value="HASH{microMarketController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.zipCode}"  <<< Remove this line
                 -->
 
 
