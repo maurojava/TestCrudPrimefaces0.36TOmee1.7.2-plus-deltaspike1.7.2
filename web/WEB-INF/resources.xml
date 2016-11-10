@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <Resource id="jdbc/testcrudgendeltaspike" type="javax.sql.DataSource">#Thu Nov 10 10:25:32 CET 2016
+jdbcDriver=org.apache.derby.jdbc.ClientDriver
+password=app
+userName=app
+jdbcUrl=jdbc\:derby\://localhost\:1527/kaysample;create=true
+</Resource>
+</resources>
