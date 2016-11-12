@@ -89,6 +89,18 @@ public abstract class AbstractController<T> implements Serializable {
         return selected;
     }
 
+    public T getAttachedSelected() {
+        if (selected != null) {
+            if (this.ejbFacade.isEntityManaged(selected)) {
+                return selected;
+            } else {
+                return this.ejbFacade.getMergedEntity(selected);
+            }
+        } else {
+            return null;
+        }
+    }
+
     /**
      * Pass in the currently selected item.
      *

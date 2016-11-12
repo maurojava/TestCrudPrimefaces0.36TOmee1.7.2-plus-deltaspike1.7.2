@@ -15,7 +15,7 @@
                 <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('MicroMarketListForm:editButton').click();" icon="ui-icon-pencil"/>
                 <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('MicroMarketListForm:deleteButton').click();" icon="ui-icon-trash"/>
                 <p:separator/>
-                <p:menuitem value="#{myBundle.MicroMarketMenuItem_customerList}" icon="ui-icon-search"  action="#{microMarketController.navigateCustomerList}" disabled="#{empty microMarketController.selected.customerList}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.MicroMarketMenuItem_customerList}" icon="ui-icon-search"  action="#{microMarketController.navigateCustomerList}" disabled="#{empty microMarketController.attachedSelected.customerList}" ajax="false"/>  
             </p:contextMenu>
             <p:dataTable id="datalist"
                          value="#{microMarketController.items}"

@@ -196,5 +196,13 @@ public abstract class AbstractFacade<T> {
         }
         return expression;
     }
+
+    public T getMergedEntity(T entity) {
+        return getEntityManager().merge(entity);
+    }
+
+    public boolean isEntityManaged(T entity) {
+        return getEntityManager().contains(entity);
+    }
     
 }

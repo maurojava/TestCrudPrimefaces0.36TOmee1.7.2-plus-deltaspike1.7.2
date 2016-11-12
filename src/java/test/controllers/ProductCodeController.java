@@ -41,9 +41,11 @@ public class ProductCodeController extends AbstractController<ProductCode> {
      * @return navigation outcome for Product page
      */
     public String navigateProductList() {
-        if (this.getSelected() != null) {
-            productListController.setItems(this.getSelected().getProductList());
-            productListController.setLazyItems(this.getSelected().getProductList());
+        ProductCode attachedSelected = this.getAttachedSelected();
+
+        if (attachedSelected != null) {
+            productListController.setItems(this.getAttachedSelected().getProductList());
+            productListController.setLazyItems(this.getAttachedSelected().getProductList());
         }
         return this.mobilePageController.getMobilePagesPrefix() + "/crud/product/index?faces-redirect=true";
     }

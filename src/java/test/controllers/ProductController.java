@@ -54,9 +54,11 @@ public class ProductController extends AbstractController<Product> {
      * @return navigation outcome for PurchaseOrder page
      */
     public String navigatePurchaseOrderList() {
-        if (this.getSelected() != null) {
-            purchaseOrderListController.setItems(this.getSelected().getPurchaseOrderList());
-            purchaseOrderListController.setLazyItems(this.getSelected().getPurchaseOrderList());
+        Product attachedSelected = this.getAttachedSelected();
+
+        if (attachedSelected != null) {
+            purchaseOrderListController.setItems(this.getAttachedSelected().getPurchaseOrderList());
+            purchaseOrderListController.setLazyItems(this.getAttachedSelected().getPurchaseOrderList());
         }
         return this.mobilePageController.getMobilePagesPrefix() + "/crud/purchaseOrder/index?faces-redirect=true";
     }

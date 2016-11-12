@@ -41,9 +41,11 @@ public class DiscountCodeController extends AbstractController<DiscountCode> {
      * @return navigation outcome for Customer page
      */
     public String navigateCustomerList() {
-        if (this.getSelected() != null) {
-            customerListController.setItems(this.getSelected().getCustomerList());
-            customerListController.setLazyItems(this.getSelected().getCustomerList());
+        DiscountCode attachedSelected = this.getAttachedSelected();
+
+        if (attachedSelected != null) {
+            customerListController.setItems(this.getAttachedSelected().getCustomerList());
+            customerListController.setLazyItems(this.getAttachedSelected().getCustomerList());
         }
         return this.mobilePageController.getMobilePagesPrefix() + "/crud/customer/index?faces-redirect=true";
     }
